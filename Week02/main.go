@@ -3,7 +3,9 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"time"
 
+	"github.com/gogf/gf/os/glog"
 	"github.com/jinzhu/gorm"
 	xerrors "github.com/pkg/errors"
 )
@@ -50,6 +52,31 @@ func (u *User) GetUser(id int64) (*User, error) {
 }
 
 func main() {
+	// 1. Get 点
+	Go(func() {
+		glog.Info("InfoLog")
+		panic("I'm panic.")
+	})
+
+	time.Sleep(time.Second)
+
+	// 作业
+	Biz()
+}
+
+// Go 避免野协程 panic
+func Go(x func()) {
+	go func() {
+		defer func() {
+			if err := recover(); err != nil {
+				fmt.Println("recover:", err)
+			}
+		}()
+		x()
+	}()
+}
+
+func Biz() {
 	var u User
 	user, err := u.GetUser(1)
 	if err != nil {
