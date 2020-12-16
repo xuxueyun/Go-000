@@ -1,0 +1,35 @@
+package app
+
+type Response struct {
+	Code int         `json:"code" example:"200"` // 响应代码
+	Data interface{} `json:"data"`               // 数据集
+	Msg  string      `json:"msg"`                // 响应消息
+}
+
+type Page struct {
+	List      interface{} `json:"list"`
+	Count     int         `json:"count"`
+	PageIndex int         `json:"pageIndex"`
+	PageSize  int         `json:"pageSize"`
+}
+
+type PageResponse struct {
+	Code int    `json:"code" example:"200"` // 代码
+	Data Page   `json:"data"`               // 数据集
+	Msg  string `json:"msg"`                // 消息
+}
+
+func (res *Response) ReturnOK() *Response {
+	res.Code = 200
+	return res
+}
+
+func (res *Response) ReturnError(code int) *Response {
+	res.Code = code
+	return res
+}
+
+func (res *PageResponse) ReturnOK() *PageResponse {
+	res.Code = 200
+	return res
+}

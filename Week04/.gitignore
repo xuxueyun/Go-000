@@ -1,0 +1,9 @@
+.idea/
+.vscode/
+vendor/
+*.tgz
+*.tar
+*.tar.gz
+*.zip
+*.exe
+Week04
